@@ -1,0 +1,83 @@
+\documentclass[runningheads,a4paper]{llncs}
+
+\usepackage[utf8]{inputenc}
+
+
+\usepackage[compatibility=false]{caption}
+\usepackage{subcaption}
+
+\usepackage{natbib}
+\bibliographystyle{apalike-fr}
+
+\usepackage{amssymb}
+\setcounter{tocdepth}{3}
+\usepackage{graphicx}% http://ctan.org/pkg/graphicx
+\usepackage{array}% http://ctan.org/pkg/array
+
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+
+\makeatletter
+\newcommand{\@chapapp}{\relax}%
+\makeatother
+
+\usepackage[title,toc,titletoc,header]{appendix}
+
+
+\begin{document}
+
+\mainmatter 
+
+\title{Neodroid: Simulation Environment And Interfaces}
+
+\titlerunning{Neodroid: Simulation Environment And Interfaces}
+
+\author{Christian Heider Nielsen}
+
+\institute{SINTEF Ocean}
+
+\authorrunning{Christian Heider Nielsen}
+
+\maketitle
+
+\begin{abstract}
+This document serves as documentation for the Neodroid simulation environment and interfaces. The purpose of the implemented environment is a enable compilation of data sets to be utilised for training machine learning models. It comprises a specific simulation of a parallel jaw gripper navigating a difficult environment and grasping fish-like objects, throughout the simulation RGB images, Depth images, positions and rotations are recorded. The Neodroid interface strives to aid a researcher in rapidly developing new simulation environments for reinforcement learning tasks. One component of the interface system serves purposely restricted information about, and access to excitable motors, within the running simulation environment. While another component enables communication to the running environment, as simple method calls on python objects. The interface system presents some abstractions designed to quickly develop a general mental model for simulation environment at hand. 
+\end{abstract}
+
+\vspace{\fill}
+
+\begin{figure}
+\centering
+\includegraphics[height=1cm]{figures/sintef-header}
+\end{figure}
+
+\clearpage
+
+\begingroup
+\let\clearpage\relax
+\tableofcontents
+\endgroup
+
+\clearpage
+
+\input{introduction}
+
+\input{simulation}
+
+\input{learning-interface}
+
+\input{experiments}
+
+\input{futurework}
+
+\bibliography{references}
+\nocite{*} 
+
+\begin{appendices}
+%\renewcommand{\thesection}{\appendixname~\Alph{section}}
+%\chapter{Appendix}
+\renewcommand{\thesection}{\Alph{section}}
+\input{app-simulation}
+\end{appendices}
+
+\end{document}

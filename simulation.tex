@@ -1,0 +1,37 @@
+\section{Fish Grasping Simulation}\label{sec:simulation}
+
+Supervised learning techniques requires a substantial amount of data to learn generalised functions for utilisation on unseen examples in any environment. The rate at which we can acquire such data in the our world is limited by time and physical constants of the universe we live in, furthermore this form of acquisition may also be costly financially. We can circumvent these limitations by carrying out precise simulations emulating the physical properties of our world. The precision of the simulation is key when any model trained on the simulated data, is applied on the data from the true distribution $p_{data}(X)$ the simulation was trying to emulate. This shift in the input data is coined domain transfer, in that the model is utilised in another domain than it was trained in. Failure to achieve sufficient precision in the simulations will most likely unexpected and unwanted behaviour by the agent using the model.[Find example]. 
+
+Having the ability to control and observe every parameter in a simulation environment means that we can certainty rely on the observed state of the environment. This eases the development of domain specific and somewhat intelligent programs that carry perfectly carry out a intended task, this allows any observer to try learn from experts with fully observable state and seek out important cues that help with the task at hand.   
+
+With importance of transferability of domain in mind we should sought to make the simulation as precise as is computationally feasible.
+
+[Insert reference to Jonathan masters] created such simulations to allow models to learn how to detect and grasp objects in an environments but not to navigate the terrain or approach grasp position and orientation.  
+
+The contribution this simulation environment quintessentially will take part in is the to allow machine learning model to learn programs from the scripted data in simulated environments, to then post training being applied in our world environment.
+
+Screenshots from the simulation in action can be seen in appendix~\ref{app:simulation}.
+
+\subsection{States}
+
+The program is implemented as state machines, observing and registering events in the environment acting accordingly.
+
+\input{states}
+
+\input{usage-guide-simulation}
+
+\subsection{Issues}
+
+The environment has some issues that degrades the realism of the simulation. 
+
+\subsubsection{Shadows}
+
+Calculating how each discrete point in the environment should be lighted is computationally extensive when trying to emulate how lighting in our world behaves, surfaces can be reflexive, luminant and the might be multiple light sources. Some assumptions and short comings is required to make rendering rate fast and smooth, this leads to limitations in what level of realism, we can achieve. In unity each light source has shadow map with some fixed resolution, this means if the light map span a larger area the pixelation is the shadows projected into the scene than when the light span a smaller area but keeps the same fixed resolution. Note that is the span is both affected by the distance the light source is from the projected surface and the field the light source spans in degrees. 
+
+\subsubsection{Friction}
+
+As of now friction between the target and the gripper relies on Unity3D physics engine, which is imprecise at best. To keep the target relatively stable within the jaws of the gripper, the target object is applied the same forces at the gripper additional to any gravitational or velocity forces affecting the target. It is important to note that these forces would be preferred to be affecting the target indirectly through the proxy colliders on the grippers jaws, but this is not the case as the Unity3D physics engine is not precise enough and simply cant approximate this intented behaviour.
+
+\subsubsection{Colliders}
+
+One issue with the current simulation is when the object to be picked up has more than one collider interconnected via joint, then the unity physics system becomes unstable and ends up having quite unpredictable and nonsensical undesired behaviour, like the colliders endlessly colliding until twisting the object out the grasp of the gripper.
