@@ -6,15 +6,9 @@ Having the ability to control and observe every parameter in a simulation enviro
 
 With importance of transferability of domain in mind we should sought to make the simulation as precise as is computationally feasible.
 
-[Insert reference to Jonathan masters] created such simulations to allow models to learn how to detect and grasp objects in an environments but not to navigate the terrain or approach grasp position and orientation.  
-
-The contribution this simulation environment quintessentially will take part in is the to allow machine learning model to learn programs from the scripted data in simulated environments, to then post training being applied in our world environment.
+\cite{Dyrstad2016} constructed such simulations to allow models to learn how to detect and grasp objects in an environments but not to navigate the environment or approach grasp position and orientation. The contribution of this simulation environment quintessentially will take part in is the to allow machine learning model to learn programs from the scripted data in simulated environments, to then post training being applied in our world environment.
 
 Screenshots from the simulation in action can be seen in appendix~\ref{app:simulation}.
-
-\subsection{States}
-
-The program is implemented as state machines, observing and registering events in the environment acting accordingly.
 
 \input{states}
 
@@ -26,12 +20,12 @@ The environment has some issues that degrades the realism of the simulation.
 
 \subsubsection{Shadows}
 
-Calculating how each discrete point in the environment should be lighted is computationally extensive when trying to emulate how lighting in our world behaves, surfaces can be reflexive, luminant and the might be multiple light sources. Some assumptions and short comings is required to make rendering rate fast and smooth, this leads to limitations in what level of realism, we can achieve. In unity each light source has shadow map with some fixed resolution, this means if the light map span a larger area the pixelation is the shadows projected into the scene than when the light span a smaller area but keeps the same fixed resolution. Note that is the span is both affected by the distance the light source is from the projected surface and the field the light source spans in degrees. 
+Calculating how each discrete point in the environment should be lighted is computationally extensive when trying to emulate how lighting in our world behaves, surfaces can be reflexive, luminant and the might be multiple light sources. Some assumptions and short comings is required to make rendering rate fast and smooth, this leads to limitations in what level of realism, we can achieve. In \cite{unity3d} each light source has shadow map with some fixed resolution according to the quality setting and the amount available ram on the gpu \cite{unityshadowmapsize}, this means if the light map span a larger area the pixelation is the shadows projected into the scene than when the light span a smaller area but keeps the same fixed resolution. Note that is the span is both affected by the distance the light source is from the projected surface and the field the light source spans in degrees. Section ~\ref{sec:shadowsexperiment} will explorer this issue further.
 
 \subsubsection{Friction}
 
-As of now friction between the target and the gripper relies on Unity3D physics engine, which is imprecise at best. To keep the target relatively stable within the jaws of the gripper, the target object is applied the same forces at the gripper additional to any gravitational or velocity forces affecting the target. It is important to note that these forces would be preferred to be affecting the target indirectly through the proxy colliders on the grippers jaws, but this is not the case as the Unity3D physics engine is not precise enough and simply cant approximate this intented behaviour.
+As of now friction between the target and the gripper relies on \cite{unityphysics} physics system, which is imprecise at best. To keep the target relatively stable within the jaws of the gripper, the target object is applied the same forces at the gripper additional to any gravitational or velocity forces affecting the target. It is important to note that these forces would be preferred to be affecting the target indirectly through the proxy colliders on the grippers jaws, but this is not the case as the \cite{unity3d} physics system is not precise enough and simply cant approximate this intented behaviour.
 
 \subsubsection{Colliders}
 
-One issue with the current simulation is when the object to be picked up has more than one collider interconnected via joint, then the unity physics system becomes unstable and ends up having quite unpredictable and nonsensical undesired behaviour, like the colliders endlessly colliding until twisting the object out the grasp of the gripper.
+One issue with the current simulation is when the object to be picked up has more than one collider interconnected via joint, then the \cite{unityphysics} physics system ends up in a unstable simulation and causes quite unpredictable and nonsensical undesired behaviour, the individual colliders of the fish-like object chaotically collides with the gripper while constantly trying the keep up the maximum angle of the joints until twisting the object out the grasp of the gripper.
