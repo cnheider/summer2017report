@@ -1,6 +1,6 @@
 \subsection{States}\label{sec:states}
 
-The program is implemented as state machines, observing and registering events in the environment acting accordingly.
+The scripted behaviour is implemented with state machines, observing and registering events in the environment and then acting accordingly.
 
 \begin{figure}
 \centering
@@ -9,11 +9,11 @@ The program is implemented as state machines, observing and registering events i
 \label{fig:motion-states}
 \end{figure}
 
-We want to know whether the current path we are following, is still valid or a collision might be occur, should that we can recalculate and plan a new collision free course for the newly changed environment, the state machine depicted in fig.~\ref{fig:motion-states} is responsible for this.
+We want to know whether the current path we are following, is still valid or a collision might be occurring with an obstuction on the current course. Should it be the case that is not valid anymore, then we would want to recalculate and plan a new collision free course for the newly changed environment. The state machine depicted in fig.~\ref{fig:motion-states} is responsible for keeping track of this.
 
-Similarly when a possible target object changes its orientation or location/position in the environment, we would want to recalculate the path and valid grasp or possibly even reconsider which target to pick up. fig.~\ref{fig:motion-states}.
+Similarly when a possible target object changes its orientation or location/position in the environment, we would want to recalculate the path and valid grasp or possibly even reconsider which target to pick up. It is implemented using the same state machine as depicted in fig.~\ref{fig:motion-states} but is tracking target instead of obstructions in the environment.
 
-We could do this every frame but as some significant time may be spend calculating such path in a difficult environment, we only want to recalculate when the environment changes.
+We could recalculate the target object and path on every frame, but as some noticeable time may sometimes be spend calculating such path in a difficult environment, we only want to recalculate when the environment changes and it is necessary.
 
 \begin{figure}
 \centering
@@ -22,8 +22,7 @@ We could do this every frame but as some significant time may be spend calculati
 \label{fig:gripper}
 \end{figure}
 
-Throughout the simulation we want to track whether the grippers claw is in an open or closed state. Because the simulation runs in discrete time steps means the gripper can be closing to reach a closed state or opening to an open state. Another way to track this was with a percentage but because the closed state position is not a fixed but in fact is dependent on the orientation, position and size of the target object the gripper is picking up, this simpler two static state solution was chosen, depicted in fig.~\ref{fig:gripper}.
-
+Throughout the simulation we would want to track whether the grippers claw is in an open or closed position. Note that the simulation runs in discrete time steps which means that the gripper can be closing to reach a closed state or opening to an open state, leading to the gripper having 4 possible states, open, opening, closed and closing. Another way to track this was with a percentage but because the closed state position is not a fixed but in fact is dependent on the orientation, position and size of the target object the gripper is picking up, then a simpler two static state solution was chosen, depicted in fig.~\ref{fig:gripper}.
 
 \begin{figure}
 \centering
@@ -32,7 +31,7 @@ Throughout the simulation we want to track whether the grippers claw is in an op
 \label{fig:path}
 \end{figure}
 
-Along the planned path the gripper is travelling, the gripper transitions through a number of phases that changes its behaviour slightly, like not rotating according to the targets orientation anymore or waiting for the environment to be at rest before continuing. fig.~\ref{fig:path} shows these states or phases if you will.
+Along the planned path the gripper is following, the gripper transitions through a number of phases that changes its behaviour slightly, like not rotating according to the targets orientation anymore or waiting for the environment to be at rest before continuing. fig.~\ref{fig:path} shows these states or phases if you will.
 
 \begin{figure}
 \centering
@@ -41,7 +40,7 @@ Along the planned path the gripper is travelling, the gripper transitions throug
 \label{fig:claw}
 \end{figure}
 
-Both claws of the gripper can possibly interacting the target be touching it, thereby also be able to affect its position and orientation. The two states for each claw indicates whether or not we have a secure grasp around the object we are picking up. If the target is only touching one claw it is possible that the object, in this case fish, will just slip out of the gripper during pick up procedure or travel procedure, fig.~\ref{fig:claw} depicts the states for these claws.
+Both claws of the gripper can possibly interacting the target, by touching it and thereby also be able to affect the target's position and orientation. The two states for each claw help to indicate whether or not we belief that we have a secure grasp around the object we are picking up. If the target is only touching one claw it is possible that the object, in this case fish, will just slip out of the gripper during pick up procedure or return procedure, fig.~\ref{fig:claw} depicts the states for these claws.
 
 \begin{figure}
 \centering
@@ -50,4 +49,4 @@ Both claws of the gripper can possibly interacting the target be touching it, th
 \label{fig:target}
 \end{figure}
 
-The state machine depicted in fig.~\ref{fig:target}, tries to capture our current belief of the state of the target being picked up, it is possible that we lose the target during travel to destination or that we fail to pick it up in the first place. When picking up the target we are tracking whether the target is inside the region of the gripper where we expect a secure grasp, when this is the case we can procedure on top closing the closing claws and secure the target in place in the gripper.
+The state machine depicted in fig.~\ref{fig:target}, tries to capture our current belief of the state of the target being picked up, it is possible that we lose the target during travel to destination or that we fail to pick it up in the first place. When picking up the target we are tracking whether the target is inside the region of the gripper where we expect a secure grasp, when this is the case we can change the state of the gripper to closing, which in turns closes claws and secures the target in place in the gripper.

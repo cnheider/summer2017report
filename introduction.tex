@@ -5,8 +5,8 @@
 %Physical robots suffer from the limitation of not being able to overcome physical constants of our universe as heat di, where as robots in simulated environment. 
 
 
-Current state of the art in game engine, virtual reality and user-friendly development technologies allows for rapid prototyping of convincing environments, where in user can intuitively move around interact with objects. The Neodroid project strives to learn the user's intent from the user interacting with the environment. Once the intent is captured, a series of slightly differing simulations with the same intent can accelerate data collection, rather than the user tirelessly having to complete same intent repeatedly in only slightly differing environments. 
-Once an agent has learned to replicate the intelligent behaviour and intent of the user through the use of the simulated data, it can explorer other possibly more efficient solution in a reinforcement learning environment.
+Current state of the art in game engine, virtual reality and user-friendly development technologies allows for rapid prototyping of environments with convincing realism, where in user can intuitively move around interact with objects. The Neodroid project strives to learn the user's intent from the user interacting with the environment. Once the intent is captured, a series of slightly differing simulations with the same intent can accelerate data collection for use in machine learning models, rather than the user tirelessly having to complete same intent repeatedly in an only slightly differing environments. 
+Once an agent, a machine learning model, has learned to replicate the intelligent behaviour and intent of the user through the use of the simulated data, it can explorer other possibly more effective solutions to a problem in a reinforcement learning environment.
 
 As the first steps of the Neodroid project to achieve this intended behaviour, an initial problem of navigating and grasping a fish-like object is posed as means of trying to replicate a user's intent, see fig.~\ref{fig:problem-environment} for what the problem includes. One of these first steps is a scripted simulation that emulate an user performing such task, in the simulation a gripper plans an unobstructed path through obstacles to a fish-like object, this component will be described in section~\ref{sec:simulation}. Next step is the reinforcement learning environment, in section~\ref{sec:learning} a detailed description of the concepts and abstractions of the interface will be given.
 
@@ -35,7 +35,7 @@ As the first steps of the Neodroid project to achieve this intended behaviour, a
 
 \caption{In the problem enviroment 
 (a) %\ref{fig:gripper-sim}
-is the gripper that navigate the obstruction 
+is the gripper that navigate the obstruction s
 (b) %\ref{fig:obstructions} 
 to the target fish 
 (c)%\ref{fig:fish-sim}
