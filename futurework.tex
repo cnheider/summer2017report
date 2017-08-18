@@ -1,7 +1,10 @@
-\section{Future Work}
+\section{Improvements For Future Work}
 
 \subsubsection{Refiner}
 Recent advances in the computer vision field such as \cite{applerefiner}, tries to cope the approximations and limitations of simulations used to generate synthetic data sets. \cite{applerefiner} shows that using generative techniques that they can generate more realistic looking data from examples generated in a simulation. Such efforts can similarly be beneficial in this project, possibly adjusting shadows slightly to reflect a more realistic setting. 
 
-\subsubsection{Effective Grasp Labelling}
+\subsubsection{Effective Possible Grasp Estimation Or Labelling}
 As of now the only to way to tell the gripper in the simulation how to grasp any object, is to actually label each individual grasp manually for each object. This is quite a daunting task and not very interesting from a machine learning perspective, much rather an automatic way of labelling or detecting possible valid grasp would be beneficial to reach has higher degree of generality of the gripper simulations and thereby also the generated data sets
+
+\subsubsection{Further Rendering Pipeline Randomisation}
+Throughout the rendering pipeline small perturbations of parameter responsible for emulating some ever changing phenomena of our world's domain, like noise in the depth images and size and color of object in the scene. A similar techniques are describe in \cite{Shotton2013} and \cite{Tobin2017}.

@@ -1,18 +1,21 @@
 \section{Fish Grasping Simulation}\label{sec:simulation}
 
-Supervised learning techniques requires a substantial amount of data to learn generalised functions for utilisation on unseen examples in any environment. The rate at which we can acquire such data in the our world is limited by time and physical constants of the universe we live in, furthermore this form of acquisition may also be costly financially. We can circumvent these limitations by carrying out precise simulations emulating the physical properties of our world. The precision of the simulation is key when any model trained on the simulated data, is applied on the data from the true distribution $p_{data}(X)$ the simulation was trying to emulate. This shift in the input data is coined domain transfer, in that the model is utilised in another domain than it was trained in. Failure to achieve sufficient precision in the simulations will most likely unexpected and unwanted behaviour by the agent using the model.[Find example]. 
+Supervised learning techniques requires a substantial amount of data to learn generalised functions for utilisation on unseen examples in any environment. The rate at which we can acquire such data in the our world's domain is limited by time and physical constants of the universe we live in, furthermore this form of acquisition may also be costly financially. We can circumvent these limitations by carrying out precise simulations emulating the physical properties of our world's domain. The precision of the simulation is key when any model trained on the simulated data, is applied on the data from the true distribution %$p_{data}(X)$
+the simulation was trying to emulate. 
+%This shift in the input data distribution is coined domain transfer, in that the model is utilised in another domain than it was trained in. 
+Failure to achieve sufficient precision in the simulations will most likely unexpected and unwanted behaviour by the agent using the model due significant change in distribution of the input and the model being slightly overfit to noise in the synthetically generated dataset.
 
 Having the ability to control and observe every parameter in a simulation environment means that we can certainty rely on the observed state of the environment. This eases the development of domain specific and somewhat intelligent programs that carry perfectly carry out a intended task, this allows any observer to try learn from experts with fully observable state and seek out important cues that help with the task at hand.   
 
-With importance of transferability of domain in mind we should sought to make the simulation as precise as is computationally feasible.
+With importance of transferability of model's domain in mind we should sought to make a simulation as precise as is computationally feasible.
 
-\cite{Dyrstad2016} constructed such simulations to allow models to learn how to detect and grasp objects in an environments but not to navigate the environment or approach grasp position and orientation. The contribution of this simulation environment quintessentially will take part in is the to allow machine learning model to learn programs from the scripted data in simulated environments, to then post training being applied in our world environment.
+\cite{Dyrstad2016} constructed such simulations to allow models to learn how to detect and grasp objects in an environments but not to navigate the environment or approach grasp position and orientation. The contribution of the constructed simulation environment is to enable compilation of data set that enable machine learning models to learn programs from some scripted behaviour in simulated environments, the focus on realism of the simulation then enables models, post-training, to be applied in our world's domain.
 
 Screenshots from the simulation in action can be seen in appendix~\ref{app:simulation}.
 
 \input{states}
 
-\input{usage-guide-simulation}
+%\input{usage-guide-simulation}
 
 \subsection{Issues}
 
@@ -20,7 +23,7 @@ The environment has some issues that degrades the realism of the simulation.
 
 \subsubsection{Shadows}
 
-Calculating how each discrete point in the environment should be lighted is computationally extensive when trying to emulate how lighting in our world behaves, surfaces can be reflexive, luminant and the might be multiple light sources. Some assumptions and short comings is required to make rendering rate fast and smooth, this leads to limitations in what level of realism, we can achieve. In \cite{unity3d} each light source has shadow map with some fixed resolution according to the quality setting and the amount available ram on the gpu \cite{unityshadowmapsize}, this means if the light map span a larger area the pixelation is the shadows projected into the scene than when the light span a smaller area but keeps the same fixed resolution. Note that is the span is both affected by the distance the light source is from the projected surface and the field the light source spans in degrees. Section ~\ref{sec:shadowsexperiment} will explorer this issue further.
+Calculating how each discrete point in the environment should be lighted is computationally extensive when trying to emulate how lighting in our world's domain behaves, surfaces can be reflexive, luminant and the might be multiple light sources. Some assumptions and short comings is required to make rendering rate fast and smooth, this leads to limitations in what level of realism, we can achieve. In \cite{unity3d} each light source has shadow map with some fixed resolution according to the quality setting and the amount available ram on the gpu \cite{unityshadowmapsize}, this means if the light map span a larger area the pixelation is the shadows projected into the scene than when the light span a smaller area but keeps the same fixed resolution. Note that is the span is both affected by the distance the light source is from the projected surface and the field the light source spans in degrees. Section ~\ref{sec:shadowsexperiment} will explorer this issue further.
 
 \subsubsection{Friction}
 
@@ -29,3 +32,5 @@ As of now friction between the target and the gripper relies on \cite{unityphysi
 \subsubsection{Colliders}
 
 One issue with the current simulation is when the object to be picked up has more than one collider interconnected via joint, then the \cite{unityphysics} physics system ends up in a unstable simulation and causes quite unpredictable and nonsensical undesired behaviour, the individual colliders of the fish-like object chaotically collides with the gripper while constantly trying the keep up the maximum angle of the joints until twisting the object out the grasp of the gripper.
+
+The source code for the simulation environment is hosted at \url{https://github.com/sintefneodroid/simulation}.

@@ -1,47 +1,45 @@
 \section{Reinforcement Learning Interface}\label{sec:learning}
 
-This section will present the concepts of the interface and discuss design decisions.
-The interface should reflect experiments executed in our wrong and therefor only present information to the agent that realistic acquirable in our world, this is to intentionally limit what of the observable state is directly exposed the agent.
+This section will present an interface for use in a reinforcement learning context.
+The interface should reflect experiments executed in our world's domain and therefore should only present information to the agent that realistic acquisitional in our world's domain, this is to intentionally limit what of the observable state is that is directly exposed the agent.
+
+The interface is heavily inspired by the reinforcement learning toolkit from \cite{openai}. The agent start off by connecting to the environment and receives the initial state of the environment. Now at each discrete time of the simulation the must decide on how to react to the current state of the environment. Then after execution of the reaction a new state which includes a reward for the previous step is returned for agent to reaction upon again. This loop is depicted fig.~\ref{fig:loop}. This loop continues until termination on either side, agent or simulation.
 
 \begin{figure}
 \centering
 \includegraphics[width=.6\linewidth]{figures/neodroid_agent_game.pdf}
-\caption{loop}
+\caption{The agent-simulation loop}
 \label{fig:loop}
 \end{figure}
 
-Fig.~\ref{fig:loop} show the agent-environment loop.
+The loop under the hood is modelled with a request socket and a corresponding response, which can easily be thought off as being respectively a client and a server in a client-server architecture. The simulation(server) waits for an agent(client) to connect and somehow mutate the state of the simulation, see fig.~\ref{fig:networking} for a visual depiction.
 
 \begin{figure}
 \centering
 \includegraphics[width=.3\linewidth]{figures/networking.pdf}
-\caption{networking}
+\caption{The agent-simulation loop in a networking perspective}
 \label{fig:networking}
 \end{figure}
 
-Fig.~\ref{fig:networking} show the agent-environment networking.
-
-
 \subsection{Models}
+
+In design of the interface some effort was made to build a intuitional mental model for thinking about the environments the agents with be interacting with, fig.~\ref{fig:interaction} is the result  of that effort. Each connection from one entity to another denotes an interactions between these, the direction denotes whether the entity is influenced by or influences the other entity.
 
 \begin{figure}
 \centering
 \includegraphics[width=.9\linewidth]{figures/neodroid_classes_verbs.pdf}
-\caption{interaction}
+\caption{Interaction of models in the Neodroid interface}
 \label{fig:interaction}
 \end{figure}
 
-Fig.~\ref{fig:interaction} was the result of an effort to build a intuitional mental model for thinking about the environments the agents with be interacting with. Each connection from one entity to another denotes an interactions between these, the direction denotes whether the entity is influenced by or influences the other entity.
-
+Fig.~\ref{fig:classes} is the formalised classes of the earlier interaction activity. Following will be conceptual descriptions of each of the formalised classes.
 
 \begin{figure}
 \centering
 \includegraphics[width=.8\linewidth]{figures/neodroid_classes.pdf}
-\caption{classes}
+\caption{Classes of the Neodroid interface}
 \label{fig:classes}
 \end{figure}
-
-Fig.~\ref{fig:classes} is the formalised classes of the earlier interaction activity. Following will be conceptual description of each of the formalised classes.
 
 \subsubsection{Actor}
 
@@ -83,4 +81,6 @@ Serialisation of the data to be transmitted to any external agent, turned out to
 
 It should be easy for researchers to include extra terms and individually weight each term to achieve different behaviours of their agents, by the objective function change ever so slightly to reach for minimum in a different function space.
 
-\input{usage-guide-interface}
+%\input{usage-guide-interface}
+
+The source code for the python interface is hosted at \url{https://github.com/sintefneodroid/neo} and the C\# interface at \url{https://github.com/sintefneodroid/droid}.
