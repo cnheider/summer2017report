@@ -1,7 +1,7 @@
 \section{Reinforcement Learning Interface}\label{sec:learning}
 
 This section will present an interface for use in a reinforcement learning context.
-The interface should reflect experiments executed in our world's domain and therefore should only present information to the agent that realistic acquisitional in our world's domain, this is to intentionally limit what of the observable state is that is directly exposed the agent.
+The interface should reflect experiments executed in our universe and therefore should only present information to the agent that realistic acquisitional in our universe, this is to intentionally limit what of the observable state is that is directly exposed the agent.
 
 The interface is heavily inspired by the reinforcement learning toolkit from \cite{openai}. The agent start off by connecting to the environment and receives the initial state of the environment. Now at each discrete time of the simulation the must decide on how to react to the current state of the environment. Then after execution of the reaction a new state which includes a reward for the previous step is returned for agent to reaction upon again. This loop is depicted fig.~\ref{fig:loop}. This loop continues until termination on either side, agent or simulation.
 
